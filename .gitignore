@@ -1,0 +1,4 @@
+*.swp
+db-interaction/credentials.rkt
+*~
+*.session
