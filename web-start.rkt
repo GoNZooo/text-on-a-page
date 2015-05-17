@@ -6,6 +6,7 @@
          web-server/dispatch
          web-server/page
 
+         "db-interaction/post-struct.rkt"
          "db-interaction/posts.rkt")
 
 (define/page (main-page posts)
