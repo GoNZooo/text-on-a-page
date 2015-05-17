@@ -1,0 +1,21 @@
+<html>
+  <head>
+    <title>Dat blog, doe...</title>
+    <link rel="stylesheet" href="css/main.css" type="text/css">
+  </head>
+  <body>
+    <div id="posts_list">
+      @in[p posts]{
+      <div class="post">
+        <div class="post_header">
+          <h1>@|(post-title p)|</h1>[@in[t (post-tags p)]{<span class="tag">@|t|</span>}]
+          <div class="post_date">@|(post-date->string (post-date p))|</div>
+        </div>
+        <div class="post_body">
+          <p>@|(post-body p)|</p>
+        </div>
+      </div>
+      }
+    </div>
+  </body>
+</html>
