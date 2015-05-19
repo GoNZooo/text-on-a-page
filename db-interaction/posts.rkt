@@ -26,7 +26,8 @@
         (postgresql-connect #:server db-location
                             #:database db-name
                             #:user db-user
-                            #:password db-password)))))
+                            #:password db-password))
+      #:max-connections 100)))
 
 (define/contract (vector-post->post vp)
   ((or/c vector? boolean?) . -> . (or/c post? boolean?))
