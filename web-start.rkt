@@ -9,15 +9,50 @@
          "db-interaction/post-struct.rkt"
          "db-interaction/posts.rkt")
 
-(define/page (main-page posts)
+(define/page (main-page shown-posts)
   (response/full
     200 #"Okay"
     (current-seconds) TEXT/HTML-MIME-TYPE
     '()
     `(,(string->bytes/utf-8 (include-template "templates/main.html")))))
 
-(define (request/blog request)
-  (main-page request (posts/get)))
+(define/page (view-page/id shown-post)
+  (response/full
+    200 #"Okay"
+    (current-seconds) TEXT/HTML-MIME-TYPE
+    '()
+    `(,(string->bytes/utf-8 (include-template "templates/view_id.html")))))
+
+(define/page (view-page/tag tag shown-posts)
+  (response/full
+    200 #"Okay"
+    (current-seconds) TEXT/HTML-MIME-TYPE
+    '()
+    `(,(string->bytes/utf-8 (include-template "templates/view_tag.html")))))
+
+(define/page (not-found-page)
+  (response/full
+    200 #"Okay"
+    (current-seconds) TEXT/HTML-MIME-TYPE
+    '()
+    `(,(string->bytes/utf-8 (include-template "templates/not_found.html")))))
+
+(define (request/main request)
+  (main-page request (reverse (posts/get))))
+
+(define (request/view/id request id)
+  (define shown-post (posts/get/id id))
+
+  (if (equal? shown-post #f)
+    (not-found-page request)
+    (view-page/id request shown-post)))
+
+(define (request/view/tag request tag)
+  (define shown-posts (reverse (posts/get/tag tag)))
+
+  (if (null? shown-posts)
+    (not-found-page request)
+    (view-page/tag request tag shown-posts)))
 
 (define/page (ping-page)
   (response/full
@@ -29,12 +64,14 @@
 (define (request/ping request)
   (ping-page request))
 
-(define-values (blog-dispatch blog-url)
+(define-values (text-dispatch text-url)
   (dispatch-rules
     [("ping") request/ping]
-    [("") request/blog]))
+    [("view" (integer-arg)) request/view/id]
+    [("view" (string-arg)) request/view/tag]
+    [("") request/main]))
 
-(serve/servlet blog-dispatch
+(serve/servlet text-dispatch
                #:port 8081
                #:listen-ip #f
                #:servlet-regexp #rx""
