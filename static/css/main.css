@@ -1,16 +1,34 @@
 body {
   color: #400;
   background-color: #ccc;
+  font-family: "Open Sans";
 }
 
-div.post_header {
+div#posts_list {
+  width: 90%;
+  max-width: 50em;
+  margin-left: 2em;
+  margin-right: 2em;
 }
 
-h2.post_title {
+div.post {
+  margin-bottom: 4em;
+}
+
+h1.post_title {
   margin-bottom: 0px;
 }
 
 span.post_tag {
+  margin-left: 0.25em;
+  margin-right: 0.25em;
+}
+
+span.post_tags {
+  margin-left: 0.25em;
+  margin-right: 0.25em;
+}
+
+span#root_link {
   margin-left: 5px;
-  margin-right: 5px;
 }
