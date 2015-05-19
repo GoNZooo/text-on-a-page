@@ -1,14 +1,24 @@
 <html>
   <head>
     <title>Северната звезда - The Northern Star</title>
-    <link rel="stylesheet" href="css/main.css" type="text/css">
+    <link rel="stylesheet" href="/css/main.css" type="text/css">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600&subset=latin,cyrillic' rel='stylesheet' type='text/css'>                         
   </head>
   <body>
     <div id="posts_list">
-      @in[p posts]{
+      @in[p shown-posts]{
       <div class="post">
         <div class="post_header">
-          <h2 class="post_title">@|(post-title p)|</h2>[@in[t (post-tags p)]{<span class="post_tag">@|t|</span>}]
+          <a href="/view/@|(post-id p)|"><h1 class="post_title">@|(post-title p)|</h1></a>
+          [<span class="post_tags">
+            @in[t (post-tags p)]{
+            <span class="post_tag">
+              <a href="/view/@|t|">@|t|</a>
+            </span>}
+          </span>]
+          <span id="root_link">
+            <a href="/">~</a>
+          </span>
           <div class="post_date">@|(post-date->string (post-date p))|</div>
         </div>
         <div class="post_body">
