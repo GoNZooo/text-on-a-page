@@ -8,7 +8,7 @@
       @in[p posts]{
       <div class="post">
         <div class="post_header">
-          <h1>@|(post-title p)|</h1>[@in[t (post-tags p)]{<span class="tag">@|t|</span>}]
+          <h2 class="post_title">@|(post-title p)|</h2>[@in[t (post-tags p)]{<span class="post_tag">@|t|</span>}]
           <div class="post_date">@|(post-date->string (post-date p))|</div>
         </div>
         <div class="post_body">

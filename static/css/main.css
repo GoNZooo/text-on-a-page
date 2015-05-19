@@ -2,3 +2,15 @@ body {
   color: #400;
   background-color: #ccc;
 }
+
+div.post_header {
+}
+
+h2.post_title {
+  margin-bottom: 0px;
+}
+
+span.post_tag {
+  margin-left: 5px;
+  margin-right: 5px;
+}
