@@ -104,12 +104,10 @@
           (pad (date-hour d))
           (pad (date-minute d))))
 
+;; TODO: Add 'edit-post'
+
 (module+ main
   (require racket/pretty)
   (for-each
     posts/remove/id
     '(6)))
-  ;(posts/insert (post 0 '("mania" "craze") "This is crazy!" "The body is smaaaaaall" #f)))
-  ;(pretty-print (posts/get)))
-;(pretty-print (posts/get/tag "random"))
-;(pretty-print (posts/get/tag "excitement")))
