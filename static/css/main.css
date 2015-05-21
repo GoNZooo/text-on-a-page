@@ -20,15 +20,12 @@ h1.post_title {
 }
 
 span.post_tag {
-  margin-left: 0.25em;
-  margin-right: 0.25em;
+  margin-left: 0.0em;
+  margin-right: 0.0em;
 }
 
 span.post_tags {
-  margin-left: 0.25em;
-  margin-right: 0.25em;
+  margin-left: 0.0em;
+  margin-right: 0.0em;
 }
 
-span#root_link {
-  margin-left: 5px;
-}

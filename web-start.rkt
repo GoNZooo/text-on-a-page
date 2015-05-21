@@ -7,7 +7,8 @@
          web-server/page
 
          "db-interaction/post-struct.rkt"
-         "db-interaction/posts.rkt")
+         "db-interaction/posts.rkt"
+         "formatting-helpers.rkt")
 
 (define/page (main-page shown-posts)
   (response/full
@@ -16,7 +17,7 @@
     '()
     `(,(string->bytes/utf-8 (include-template "templates/main.html")))))
 
-(define/page (view-page/id shown-post)
+(define/page (view-page/id shown-posts)
   (response/full
     200 #"Okay"
     (current-seconds) TEXT/HTML-MIME-TYPE
@@ -45,7 +46,7 @@
 
   (if (equal? shown-post #f)
     (not-found-page request)
-    (view-page/id request shown-post)))
+    (view-page/id request `(,shown-post))))
 
 (define (request/view/tag request tag)
   (define shown-posts (reverse (posts/get/tag tag)))

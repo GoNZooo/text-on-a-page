@@ -1,30 +1,10 @@
 <html>
   <head>
-    <title>'@|(post-title shown-post)|' @"@" Северната звезда</title>
+    <title>'@|(post-title (car shown-posts))|' @"@" Северната звезда</title>
     <link rel="stylesheet" href="/css/main.css" type="text/css">
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600&subset=latin,cyrillic' rel='stylesheet' type='text/css'>                         
   </head>
   <body>
-    <div id="posts_list">
-      <div class="post">
-        <div class="post_header">
-          <h1 class="post_title">@|(post-title shown-post)|</h1>
-          [<span class="post_tags">
-            @in[t (post-tags shown-post)]{
-            <span class="post_tag">
-              <a href="/view/@|t|">@|t|</a>
-            </span>}</span>]
-            <span id="root_link">
-              <a href="/">~</a>
-            </span>
-          <div class="post_date">
-            @|(post-date->string (post-date shown-post))|
-          </div>
-        </div>
-        <div class="post_body">
-          <p>@|(post-body shown-post)|</p>
-        </div>
-      </div>
-    </div>
+    @|(include-template "show_posts.html")|
   </body>
 </html>
