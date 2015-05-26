@@ -8,6 +8,8 @@
          "../db-interaction/posts.rkt"
          "../db-interaction/post-struct.rkt")
 
+(provide build-file)
+
 (define input-file (make-parameter ""))
 (define tags (make-parameter null))
 (define name (make-parameter ""))
