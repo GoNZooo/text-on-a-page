@@ -17,7 +17,12 @@
          posts/insert
          posts/remove/id
          posts/remove/tag
-         post-date->string)
+         post-date->string
+         posts/edit/full/id
+         posts/edit/tags/id
+         posts/edit/body/id
+         posts/edit/title/id
+         )
 
 (define db-conn
   (virtual-connection
