@@ -105,6 +105,39 @@
           (pad (date-minute d))))
 
 ;; TODO: Add 'edit-post'
+(define/contract (posts/edit/full/id id tags title body)
+  (real? (listof string?) string? string? . -> . void?)
+
+  (query-exec db-conn
+              "UPDATE post SET tags = $1, title = $2, body = $3 WHERE id = $4;"
+              (list->pg-array tags)
+              title
+              body
+              id))
+
+(define/contract (posts/edit/title/id id title)
+  (real? string? . -> . void?)
+
+  (query-exec db-conn
+              "UPDATE post SET title = $1 WHERE id = $2;"
+              title
+              id))
+
+(define/contract (posts/edit/body/id id body)
+  (real? string? . -> . void?)
+
+  (query-exec db-conn
+              "UPDATE post SET body = $1 WHERE id = $2;"
+              body
+              id))
+
+(define/contract (posts/edit/tags/id id tags)
+  (real? (listof string?) . -> . void?)
+
+  (query-exec db-conn
+              "UPDATE post SET tags = $1 WHERE id = $2;"
+              tags
+              id))
 
 (module+ main
   (require racket/pretty)
