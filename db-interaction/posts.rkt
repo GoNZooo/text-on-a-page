@@ -109,7 +109,6 @@
           (pad (date-hour d))
           (pad (date-minute d))))
 
-;; TODO: Add 'edit-post'
 (define/contract (posts/edit/full/id id tags title body)
   (real? (listof string?) string? string? . -> . void?)
 
