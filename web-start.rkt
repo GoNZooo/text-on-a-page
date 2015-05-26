@@ -39,7 +39,9 @@
     `(,(string->bytes/utf-8 (include-template "templates/not_found.html")))))
 
 (define (request/main request)
-  (main-page request (reverse (posts/get))))
+  (main-page request (sort (posts/get)
+                           >
+                           #:key post-id)))
 
 (define (request/view/id request id)
   (define shown-post (posts/get/id id))
