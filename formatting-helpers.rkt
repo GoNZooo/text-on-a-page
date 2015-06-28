@@ -10,7 +10,7 @@
   (define (tag/out t)
     (format "<span class=\"post_tag\"><a href=\"/view/~a\">~a</a>"
             t t))
-  
+
   (if (= (length ts) 1)
     (tag/out (car ts))
     (format "~a,~a"
