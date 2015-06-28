@@ -47,7 +47,7 @@
 
 (define/contract (upload-post tags name filename)
   ((listof string?) string? string? . -> . void?)
-  
+
   (posts/insert (post 0
                       tags
                       name
