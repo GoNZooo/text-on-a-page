@@ -36,7 +36,7 @@
 
 (define/contract (make-edits id name body tags)
   (real? string? string? (listof string?) . -> . void?)
-  
+
   (when (not (equal? name ""))
     (posts/edit/title/id id name))
   (when (not (equal? body ""))
