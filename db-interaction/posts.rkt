@@ -66,7 +66,7 @@
 
 (define/contract (posts/get/id id)
   (real? . -> . (or/c post? boolean?))
-  
+
   (vector-post->post (query-maybe-row db-conn
                                       "SELECT * FROM post WHERE id = $1;"
                                       id)))
