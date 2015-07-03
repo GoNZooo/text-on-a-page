@@ -2,3 +2,4 @@
 db-interaction/credentials.rkt
 *~
 *.session
+src/db-data/*
