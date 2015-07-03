@@ -1,5 +1,5 @@
 *.swp
-db-interaction/credentials.rkt
+src/db-interaction/credentials.rkt
 *~
 *.session
 src/db-data/*
