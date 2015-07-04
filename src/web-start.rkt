@@ -57,22 +57,23 @@
     (not-found-page request)
     (view-page/tag request tag shown-posts)))
 
-(define/page (ping-page)
+(define/page (ping-page [arg ""])
   (response/full
     200 #"Okay"
     (current-seconds) TEXT/HTML-MIME-TYPE
     '()
-    `(,(string->bytes/utf-8 "Pong!"))))
+    `(,(string->bytes/utf-8 (format "Pong! ~a!" arg)))))
 
-(define (request/ping request)
-  (ping-page request))
+(define (request/ping request [arg ""])
+  (ping-page request (url->string (request-uri request))))
 
 (define-values (text-dispatch text-url)
   (dispatch-rules
     [("ping") request/ping]
-    [("view" (integer-arg)) request/view/id]
-    [("view" (string-arg)) request/view/tag]
-    [("") request/main]))
+    [("text" "") request/main]
+    [("text" "view" (integer-arg)) request/view/id]
+    [("text" "view" (string-arg)) request/view/tag]
+    [else request/ping]))
 
 (serve/servlet text-dispatch
                #:port 8081
