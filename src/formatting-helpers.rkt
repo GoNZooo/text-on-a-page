@@ -8,7 +8,7 @@
   ((listof string?) . -> . string?)
 
   (define (tag/out t)
-    (format "<span class=\"post_tag\"><a href=\"/view/~a\">~a</a>"
+    (format "<span class=\"post_tag\"><a href=\"/text/view/~a\">~a</a>"
             t t))
 
   (if (= (length ts) 1)
