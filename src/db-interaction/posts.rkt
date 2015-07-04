@@ -49,48 +49,56 @@
                             0 0 #f 2))]
     [_ #f]))
 
-(define/contract (posts/get)
-  (-> (listof post?))
+(define/contract (posts/get #:database-connection [dbc db-conn])
+  (() (#:database-connection connection?) . ->* . (listof post?))
 
   (map vector-post->post
-       (query-rows db-conn
+       (query-rows dbc
                    "SELECT * FROM post;")))
 
-(define/contract (posts/get/tag tag)
-  (string? . -> . (listof post?))
+(define/contract (posts/get/tag tag #:database-connection [dbc db-conn])
+  ((string?)
+   (#:database-connection connection?) . ->* . (listof post?))
 
   (map vector-post->post
-       (query-rows db-conn
+       (query-rows dbc
                    "SELECT * FROM post WHERE tags && ARRAY[$1];"
                    tag)))
 
-(define/contract (posts/get/id id)
-  (real? . -> . (or/c post? boolean?))
+(define/contract (posts/get/id id #:database-connection
+                                   [dbc db-conn])
+  ((real?) (#:database-connection
+            connection?) . ->* . (or/c post? boolean?))
 
-  (vector-post->post (query-maybe-row db-conn
+  (vector-post->post (query-maybe-row dbc
                                       "SELECT * FROM post WHERE id = $1;"
                                       id)))
 
-(define/contract (posts/insert ip)
-  (post? . -> . void?)
+(define/contract (posts/insert ip #:database-connection
+                                   [dbc db-conn])
+  ((post?) (#:database-connection
+            connection?) . ->* . void?)
 
-  (query-exec db-conn
+  (query-exec dbc
               "INSERT INTO post (tags, title, body) VALUES ($1, $2, $3);"
               (list->pg-array (post-tags ip))
               (post-title ip)
               (post-body ip)))
 
-(define/contract (posts/remove/id id)
-  (real? . -> . void?)
+(define/contract (posts/remove/id id #:database-connection
+                                      [dbc db-conn])
+  ((real?)  (#:database-connection
+             connection?) . ->* . void?)
 
-  (query-exec db-conn
+  (query-exec dbc
               "DELETE FROM post WHERE id = $1;"
               id))
 
-(define/contract (posts/remove/tag tag)
-  (string? . -> . void?)
+(define/contract (posts/remove/tag tag #:database-connection
+                                        [dbc db-conn])
+  ((string?) (#:database-connection connection?) . ->* . void?)
 
-  (query-exec db-conn
+  (query-exec dbc
               "DELETE FROM post WHERE tag = $1;"
               tag))
 
@@ -109,36 +117,44 @@
           (pad (date-hour d))
           (pad (date-minute d))))
 
-(define/contract (posts/edit/full/id id tags title body)
-  (real? (listof string?) string? string? . -> . void?)
+(define/contract (posts/edit/full/id id tags title body #:database-connection
+                                                         [dbc db-conn])
+  ((real? (listof string?) string? string?)
+   (#:database-connection connection?) . ->* . void?)
 
-  (query-exec db-conn
+  (query-exec dbc
               "UPDATE post SET tags = $1, title = $2, body = $3 WHERE id = $4;"
               (list->pg-array tags)
               title
               body
               id))
 
-(define/contract (posts/edit/title/id id title)
-  (real? string? . -> . void?)
+(define/contract (posts/edit/title/id id title #:database-connection
+                                                [dbc db-conn])
+  ((real? string?)
+   (#:database-connection connection?) . ->* . void?)
 
-  (query-exec db-conn
+  (query-exec dbc
               "UPDATE post SET title = $1 WHERE id = $2;"
               title
               id))
 
-(define/contract (posts/edit/body/id id body)
-  (real? string? . -> . void?)
+(define/contract (posts/edit/body/id id body #:database-connection
+                                              [dbc db-conn])
+  ((real? string?)
+   (#:database-connection connection?) . ->* . void?)
 
-  (query-exec db-conn
+  (query-exec dbc
               "UPDATE post SET body = $1 WHERE id = $2;"
               body
               id))
 
-(define/contract (posts/edit/tags/id id tags)
-  (real? (listof string?) . -> . void?)
+(define/contract (posts/edit/tags/id id tags #:database-connection
+                                              [dbc db-conn])
+  ((real? (listof string?))
+   (#:database-connection connection?) . ->* . void?)
 
-  (query-exec db-conn
+  (query-exec dbc
               "UPDATE post SET tags = $1 WHERE id = $2;"
               tags
               id))
