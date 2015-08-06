@@ -23,8 +23,6 @@
     (values (string->number id)
             (tags))))
 
-(define )
-
 (module+ main
   (get-commandline-arguments)
   
