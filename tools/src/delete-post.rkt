@@ -15,13 +15,11 @@
     #:once-each
     [("-i" "--id") i
                    "Specify ID of the post to delete"
-                   (id i)]
+                   (id (string->number i))]
     #:multi
     [("-t" "--tag") t
                     "Specify delete based on tags"
-                    (tags (cons t (tags)))]
-    (values (string->number id)
-            (tags))))
+                    (tags (cons t (tags)))]))
 
 (module+ main
   (get-commandline-arguments)
