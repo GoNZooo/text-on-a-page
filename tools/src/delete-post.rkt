@@ -11,15 +11,15 @@
 
 (define (get-commandline-arguments)
   (command-line
-    #:program "delete-post.rkt"
-    #:once-each
-    [("-i" "--id") i
-                   "Specify ID of the post to delete"
-                   (id (string->number i))]
-    #:multi
-    [("-t" "--tag") t
-                    "Specify delete based on tags"
-                    (tags (cons t (tags)))]))
+   #:program "delete-post.rkt"
+   #:once-each
+   [("-i" "--id") i
+    "Specify ID of the post to delete"
+    (id (string->number i))]
+   #:multi
+   [("-t" "--tag") t
+    "Specify delete based on tags"
+    (tags (cons t (tags)))]))
 
 (module+ main
   (get-commandline-arguments)

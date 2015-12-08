@@ -16,18 +16,18 @@
 
 (define (get-commandline-arguments)
   (command-line
-    #:program "make-post.rkt"
-    #:once-each
-    [("-n" "--name") n
-                     "Set the name (title) of the post"
-                     (name n)]
-    #:multi
-    [("-t" "--tag") t
-                    "Specify a tag for the post"
-                    (tags (cons t (tags)))]
-    #:args (filename)
+   #:program "make-post.rkt"
+   #:once-each
+   [("-n" "--name") n
+    "Set the name (title) of the post"
+    (name n)]
+   #:multi
+   [("-t" "--tag") t
+    "Specify a tag for the post"
+    (tags (cons t (tags)))]
+   #:args (filename)
 
-    filename))
+   filename))
 
 (define/contract (parse-file filename)
   (string? . -> . list?)

@@ -1,19 +1,19 @@
 <div id="posts_list">
-  @in[p shown-posts]{
-  <div class="post">
-    <div class="post_header">
-      <a href="/text/view/@|(post-id p)|"><h1 class="post_title">@|(post-title p)|</h1></a>
-      <span id="root_link">
-        <a href="/text/">$HOME/</a>view/
-      </span>
-      {<span class="post_tags">
-        @|(format-tag-links (post-tags p))|
-      </span>}
-      <div class="post_date">@|(post-date->string (post-date p))|</div>
+    @in[p shown-posts]{
+    <div class="post">
+        <div class="post_header">
+            <a href="/text/view/@|(post-id p)|"><h1 class="post_title">@|(post-title p)|</h1></a>
+            <span id="root_link">
+                <a href="/text/">$HOME/</a>view/
+            </span>
+            {<span class="post_tags">
+                @|(format-tag-links (post-tags p))|
+            </span>}
+            <div class="post_date">@|(post-date->string (post-date p))|</div>
+        </div>
+        <div class="post_body">
+            <p>@|(post-body p)|</p>
+        </div>
     </div>
-    <div class="post_body">
-      <p>@|(post-body p)|</p>
-    </div>
-  </div>
-  }
+    }
 </div>

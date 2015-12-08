@@ -12,7 +12,7 @@
             t t))
 
   (if (= (length ts) 1)
-    (tag/out (car ts))
-    (format "~a,~a"
-            (tag/out (car ts))
-            (format-tag-links (cdr ts)))))
+      (tag/out (car ts))
+      (format "~a,~a"
+              (tag/out (car ts))
+              (format-tag-links (cdr ts)))))

@@ -26,12 +26,12 @@
 
 (define db-conn
   (virtual-connection
-    (connection-pool
-      (lambda ()
-        (postgresql-connect #:server db-location
-                            #:database db-name
-                            #:user db-user
-                            #:password db-password)))))
+   (connection-pool
+    (lambda ()
+      (postgresql-connect #:server db-location
+                          #:database db-name
+                          #:user db-user
+                          #:password db-password)))))
 
 (define/contract (vector-post->post vp)
   ((or/c vector? boolean?) . -> . (or/c post? boolean?))
@@ -66,7 +66,7 @@
                    tag)))
 
 (define/contract (posts/get/id id #:database-connection
-                                   [dbc db-conn])
+                               [dbc db-conn])
   ((real?) (#:database-connection
             connection?) . ->* . (or/c post? boolean?))
 
@@ -75,7 +75,7 @@
                                       id)))
 
 (define/contract (posts/insert ip #:database-connection
-                                   [dbc db-conn])
+                               [dbc db-conn])
   ((post?) (#:database-connection
             connection?) . ->* . void?)
 
@@ -86,7 +86,7 @@
               (post-body ip)))
 
 (define/contract (posts/remove/id id #:database-connection
-                                      [dbc db-conn])
+                                  [dbc db-conn])
   ((real?)  (#:database-connection
              connection?) . ->* . void?)
 
@@ -95,7 +95,7 @@
               id))
 
 (define/contract (posts/remove/tag tag #:database-connection
-                                        [dbc db-conn])
+                                   [dbc db-conn])
   ((string?) (#:database-connection connection?) . ->* . void?)
 
   (query-exec dbc
@@ -107,8 +107,8 @@
 
   (define (pad x)
     (if (< x 10)
-      (format "0~a" x)
-      x))
+        (format "0~a" x)
+        x))
 
   (format "~a-~a-~a ~a:~a"
           (date-year d)
@@ -118,7 +118,7 @@
           (pad (date-minute d))))
 
 (define/contract (posts/edit/full/id id tags title body #:database-connection
-                                                         [dbc db-conn])
+                                     [dbc db-conn])
   ((real? (listof string?) string? string?)
    (#:database-connection connection?) . ->* . void?)
 
@@ -130,7 +130,7 @@
               id))
 
 (define/contract (posts/edit/title/id id title #:database-connection
-                                                [dbc db-conn])
+                                      [dbc db-conn])
   ((real? string?)
    (#:database-connection connection?) . ->* . void?)
 
@@ -140,7 +140,7 @@
               id))
 
 (define/contract (posts/edit/body/id id body #:database-connection
-                                              [dbc db-conn])
+                                     [dbc db-conn])
   ((real? string?)
    (#:database-connection connection?) . ->* . void?)
 
@@ -150,7 +150,7 @@
               id))
 
 (define/contract (posts/edit/tags/id id tags #:database-connection
-                                              [dbc db-conn])
+                                     [dbc db-conn])
   ((real? (listof string?))
    (#:database-connection connection?) . ->* . void?)
 
@@ -162,5 +162,5 @@
 (module+ main
   (require racket/pretty)
   (for-each
-    posts/remove/id
-    '(6)))
+   posts/remove/id
+   '(6)))
